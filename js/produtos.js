@@ -7,8 +7,7 @@ const LOJA = {
 
 // tipo: 'percentual' (valor em %) ou 'fixo' (valor em R$). Códigos em MAIÚSCULAS.
 const CUPONS = [
-  { codigo: 'DOCE10', tipo: 'percentual', valor: 10 },
-  { codigo: 'BEMVINDO5', tipo: 'fixo', valor: 5 },
+  { codigo: 'TESTE', tipo: 'percentual', valor: 10 },
 ];
 
 const CATEGORIAS = [

@@ -569,7 +569,8 @@ body.modal-aberto { overflow: hidden; }
   background: #FFFCF6;
   color: var(--chocolate);
   font: inherit;
-  font-size: 14px;
+  /* 16px evita o zoom automático do celular ao focar o campo */
+  font-size: 16px;
   text-transform: uppercase;
 }
 
