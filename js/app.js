@@ -12,6 +12,8 @@
     return 'https://wa.me/' + LOJA.whatsapp + '?text=' + encodeURIComponent(texto);
   }
 
+  document.getElementById('previa-wpp').href = linkWhatsApp(LOJA.mensagemContato);
+
   // Botão principal e ícone do WhatsApp usam o número configurado
   document.getElementById('link-whatsapp').href = linkWhatsApp(LOJA.mensagemContato);
   document.querySelectorAll('.rede[aria-label="WhatsApp"]').forEach(function (a) {
@@ -103,6 +105,7 @@
   }
 
   function renderCarrinho() {
+    esconderPrevia();
     const t = calcular();
     const vazio = t.qtd === 0;
 
@@ -153,7 +156,85 @@
     salvar();
   }
 
+  // ---------- Resumo em imagem ----------
+  const botaoImagem = document.getElementById('carrinho-imagem');
+  const textoImagem = document.getElementById('carrinho-imagem-txt');
+  const previa = document.getElementById('previa');
+  const previaImg = document.getElementById('previa-img');
+  const previaBaixar = document.getElementById('previa-baixar');
+  let previaUrl = null;
+
+  function esconderPrevia() {
+    previa.hidden = true;
+    if (previaUrl) { URL.revokeObjectURL(previaUrl); previaUrl = null; }
+  }
+
+  function dadosComprovante(t) {
+    return {
+      numero: String(Date.now()).slice(-6),
+      itens: Object.keys(itens).map(function (i) {
+        const p = produtos[i];
+        return {
+          nome: nomeCompleto(p),
+          qtd: itens[i],
+          unit: p.preco,
+          total: p.preco * itens[i],
+          foto: p.foto,
+          icone: p.icone,
+        };
+      }),
+      subtotal: t.subtotal,
+      desconto: t.desconto,
+      cupom: cupomAtivo && cupomAtivo.codigo,
+      total: t.total,
+      formatar: function (v) { return brl.format(v); },
+    };
+  }
+
+  function prepararImagens() {
+    Comprovante.preparar(produtos.map(function (p) { return p.foto; }).filter(Boolean));
+  }
+
+  botaoImagem.addEventListener('click', async function () {
+    const t = calcular();
+    if (t.qtd === 0) return;
+
+    botaoImagem.disabled = true;
+    textoImagem.textContent = 'Gerando resumo…';
+    try {
+      const blob = await Comprovante.gerar(dadosComprovante(t));
+      const arquivo = new File([blob], 'pedido-doce-talento.png', { type: 'image/png' });
+
+      // No celular, abre a folha de compartilhamento já com a imagem
+      if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
+        try {
+          await navigator.share({
+            files: [arquivo],
+            title: 'Pedido Doce Talento',
+            text: 'Pedido Doce Talento — Total ' + brl.format(t.total),
+          });
+          return;
+        } catch (e) {
+          if (e && e.name === 'AbortError') return;
+          // qualquer outro erro: cai na prévia com download
+        }
+      }
+
+      esconderPrevia();
+      previaUrl = URL.createObjectURL(blob);
+      previaImg.src = previaUrl;
+      previaBaixar.href = previaUrl;
+      previa.hidden = false;
+    } catch (e) {
+      alert('Não foi possível gerar o resumo. Use a opção de enviar como texto.');
+    } finally {
+      botaoImagem.disabled = false;
+      textoImagem.textContent = 'Enviar resumo pelo WhatsApp';
+    }
+  });
+
   function abrir() {
+    prepararImagens();
     modal.hidden = false;
     document.body.classList.add('modal-aberto');
     modal.querySelector('.modal__fechar').focus();

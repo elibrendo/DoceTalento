@@ -83,16 +83,24 @@
         </dl>
       </div>
       <footer class="modal__rodape">
-        <a class="botao botao--destaque" id="carrinho-pedir" href="#" target="_blank" rel="noopener noreferrer">
-          <span>Pedir pelo WhatsApp</span>
+        <div class="previa" id="previa" hidden>
+          <img id="previa-img" alt="Resumo do pedido">
+          <p>Baixe a imagem, abra o WhatsApp e anexe o resumo à conversa.</p>
+          <a class="botao botao--secundario" id="previa-baixar" href="#" download="pedido-doce-talento.png">Baixar imagem</a>
+          <a class="botao botao--secundario" id="previa-wpp" href="#" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
+        </div>
+        <button class="botao botao--destaque" id="carrinho-imagem" type="button">
+          <span id="carrinho-imagem-txt">Enviar resumo pelo WhatsApp</span>
           <span aria-hidden="true">↗</span>
-        </a>
+        </button>
+        <a class="modal__limpar" id="carrinho-pedir" href="#" target="_blank" rel="noopener noreferrer">Enviar apenas como texto</a>
         <button class="modal__limpar" id="carrinho-limpar" type="button">Esvaziar carrinho</button>
       </footer>
     </section>
   </div>
 
   <script src="js/produtos.js"></script>
+  <script src="js/comprovante.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
