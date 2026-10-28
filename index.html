@@ -3,60 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>[Nome da sua marca] · Links e catálogo</title>
-  <meta name="description" content="[Uma frase curta sobre o que você vende e para quem]">
+  <meta name="theme-color" content="#502910">
+  <title>Doce Talento · Confeitaria artesanal</title>
+  <meta name="description" content="Bolachinhas caseiras, pudins e doces artesanais feitos com carinho. Peça pelo WhatsApp.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=DM+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <main class="page">
-
     <header class="perfil">
-      <div class="avatar ph">
-        <!-- Troque pela sua logo: <img src="img/logo.png" alt="Logo da marca"> -->
-        <span>Sua logo</span>
-      </div>
-      <h1 class="perfil__nome">[Nome da sua marca]</h1>
-      <p class="perfil__bio">[Uma frase curta sobre o que você vende e para quem]</p>
+      <a class="marca" href="#" aria-label="Doce Talento, início">
+        <img class="marca__logo" src="img/logo.png" alt="">
+      </a>
+      <p class="perfil__chamada">Um carinho em forma de doce.</p>
+      <p class="perfil__bio">Feitos à mão para deixar seus momentos ainda mais gostosos.</p>
 
       <nav class="redes" aria-label="Redes sociais">
-        <a class="rede" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <a class="rede" href="https://www.instagram.com/docetalento.dt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Doce Talento">
           <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6"/></svg>
         </a>
-        <a class="rede" href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.6 2.6 2.4 4.2 5 4.5"/></svg>
-        </a>
-        <a class="rede" href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <a class="rede" href="https://wa.me/5535998380259" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da Doce Talento">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8c-1-.4-1.9-1.3-2.3-2.3l.8-1-1-2z"/></svg>
-        </a>
-        <a class="rede" href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/></svg>
-        </a>
-        <a class="rede" href="mailto:contato@suamarca.com" aria-label="E-mail">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>
         </a>
       </nav>
     </header>
 
     <section class="links" aria-label="Links principais">
-      <a class="botao botao--destaque" id="link-whatsapp" href="https://wa.me/" target="_blank" rel="noopener">Fale comigo no WhatsApp</a>
-      <a class="botao" href="https://suamarca.com" target="_blank" rel="noopener">Visite o site</a>
-      <a class="botao" href="#catalogo">Ver catálogo ↓</a>
+      <a class="botao botao--destaque" id="link-whatsapp" href="https://wa.me/5535998380259" target="_blank" rel="noopener noreferrer">
+        <span>Faça seu pedido</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a class="botao botao--secundario" href="#catalogo">Conheça nosso cardápio <span aria-hidden="true">↓</span></a>
     </section>
 
-    <section class="catalogo" id="catalogo" aria-label="Catálogo">
+    <section class="catalogo" id="catalogo" aria-label="Cardápio">
       <div class="catalogo__topo">
-        <h2>Catálogo</h2>
+        <div>
+          <p class="sobretitulo">Feito com carinho</p>
+          <h1>Nosso cardápio</h1>
+        </div>
         <span class="catalogo__contagem" id="contagem" aria-live="polite"></span>
       </div>
       <div class="filtros" id="filtros" role="group" aria-label="Filtrar produtos"></div>
       <div class="grade" id="grade"></div>
     </section>
 
-    <footer class="rodape">© [Nome da sua marca] · Pedidos pelo WhatsApp</footer>
+    <footer class="rodape">
+      <span class="rodape__marca">Doce Talento</span>
+      <span>Com carinho, do nosso forno para você.</span>
+      <a href="https://www.instagram.com/docetalento.dt/" target="_blank" rel="noopener noreferrer">@docetalento.dt</a>
+    </footer>
   </main>
+
+  <button class="carrinho-botao" id="carrinho-abrir" type="button" aria-label="Abrir carrinho" hidden>
+    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 10.5h9.6L19.5 7H6.4"/><circle cx="9.5" cy="19" r="1.2"/><circle cx="16.5" cy="19" r="1.2"/></svg>
+    <span class="carrinho-botao__qtd" id="carrinho-qtd">0</span>
+  </button>
+
+  <div class="modal" id="carrinho" hidden>
+    <div class="modal__fundo" data-fechar></div>
+    <section class="modal__caixa" role="dialog" aria-modal="true" aria-labelledby="carrinho-titulo">
+      <header class="modal__topo">
+        <h2 id="carrinho-titulo">Seu pedido</h2>
+        <button class="modal__fechar" type="button" data-fechar aria-label="Fechar carrinho">×</button>
+      </header>
+      <div class="modal__corpo">
+        <ul class="itens" id="carrinho-itens"></ul>
+        <form class="cupom" id="cupom-form" autocomplete="off">
+          <input type="text" id="cupom-codigo" placeholder="Cupom de desconto" aria-label="Cupom de desconto">
+          <button type="submit">Aplicar</button>
+        </form>
+        <p class="cupom__msg" id="cupom-msg" aria-live="polite"></p>
+        <dl class="totais">
+          <div><dt>Subtotal</dt><dd id="total-subtotal"></dd></div>
+          <div id="total-desconto-linha" hidden><dt>Desconto</dt><dd id="total-desconto"></dd></div>
+          <div class="totais__final"><dt>Total</dt><dd id="total-final"></dd></div>
+        </dl>
+      </div>
+      <footer class="modal__rodape">
+        <a class="botao botao--destaque" id="carrinho-pedir" href="#" target="_blank" rel="noopener noreferrer">
+          <span>Pedir pelo WhatsApp</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        <button class="modal__limpar" id="carrinho-limpar" type="button">Esvaziar carrinho</button>
+      </footer>
+    </section>
+  </div>
 
   <script src="js/produtos.js"></script>
   <script src="js/app.js"></script>

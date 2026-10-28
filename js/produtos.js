@@ -1,47 +1,101 @@
-/* =========================================================
-   CONFIGURAÇÃO DA LOJA — edite só este arquivo no dia a dia
-   ========================================================= */
-
 const LOJA = {
-  // Seu WhatsApp com DDI + DDD, só números. Ex.: '5535999999999'
-  whatsapp: '5500000000000',
-
-  // Mensagem que abre no WhatsApp ao clicar em "Pedir".
-  // {produto} e {preco} são trocados automaticamente.
-  mensagemPedido: 'Olá! Tenho interesse no produto {produto} ({preco}).',
-
-  // Mensagem do botão "Fale comigo no WhatsApp"
-  mensagemContato: 'Olá! Vim pelo seu link da bio.',
-
-  // Limite de produtos exibidos no catálogo
+  whatsapp: '5535998380259',
+  mensagemPedido: 'Olá! Gostaria de fazer o seguinte pedido:',
+  mensagemContato: 'Olá! Vim pelo link da Doce Talento.',
   maxProdutos: 10,
 };
 
-// Categorias dos filtros. O id 'todos' mostra tudo.
-const CATEGORIAS = [
-  { id: 'todos', nome: 'Todos' },
-  { id: 'novo',  nome: 'Novidades' },
-  { id: 'top',   nome: 'Mais vendidos' },
-  { id: 'promo', nome: 'Promoção' },
+// tipo: 'percentual' (valor em %) ou 'fixo' (valor em R$). Códigos em MAIÚSCULAS.
+const CUPONS = [
+  { codigo: 'DOCE10', tipo: 'percentual', valor: 10 },
+  { codigo: 'BEMVINDO5', tipo: 'fixo', valor: 5 },
 ];
 
-/*
-  PRODUTOS (até 10)
-  - nome:        nome do produto
-  - preco:       preço em número (ex.: 49.9)
-  - precoAntigo: opcional, aparece riscado (use em promoções)
-  - categoria:   'novo', 'top' ou 'promo' (mesmos ids de CATEGORIAS)
-  - foto:        caminho da imagem, ex.: 'img/produto-01.jpg' (deixe '' para o marcador)
-*/
+const CATEGORIAS = [
+  { id: 'todos', nome: 'Tudo' },
+  { id: 'bolachinhas', nome: 'Bolachinhas' },
+  { id: 'pudins', nome: 'Pudins' },
+  { id: 'doces', nome: 'Doces' },
+];
+
 const PRODUTOS = [
-  { nome: '[Produto 01]', preco: 0, categoria: 'novo',  foto: '' },
-  { nome: '[Produto 02]', preco: 0, categoria: 'top',   foto: '' },
-  { nome: '[Produto 03]', preco: 0, precoAntigo: 0, categoria: 'promo', foto: '' },
-  { nome: '[Produto 04]', preco: 0, categoria: 'top',   foto: '' },
-  { nome: '[Produto 05]', preco: 0, categoria: 'novo',  foto: '' },
-  { nome: '[Produto 06]', preco: 0, precoAntigo: 0, categoria: 'promo', foto: '' },
-  { nome: '[Produto 07]', preco: 0, categoria: 'top',   foto: '' },
-  { nome: '[Produto 08]', preco: 0, categoria: 'novo',  foto: '' },
-  { nome: '[Produto 09]', preco: 0, categoria: 'top',   foto: '' },
-  { nome: '[Produto 10]', preco: 0, precoAntigo: 0, categoria: 'promo', foto: '' },
+  {
+    nome: 'Bolachinhas caseiras',
+    descricao: 'Nata, coco, limão, queijo, goiabinha e sequilhos.',
+    detalhe: '250 g',
+    foto: 'img/bolachinhas.jpg',
+    preco: 8.5,
+    categoria: 'bolachinhas',
+    icone: '🍪',
+  },
+  {
+    nome: 'Bolachinhas caseiras',
+    descricao: 'Nata, coco, limão, queijo, goiabinha e sequilhos.',
+    detalhe: '500 g',
+    foto: 'img/bolachinhas.jpg',
+    preco: 17,
+    categoria: 'bolachinhas',
+    icone: '🍪',
+  },
+  {
+    nome: 'Bolachinhas caseiras',
+    descricao: 'Nata, coco, limão, queijo, goiabinha e sequilhos.',
+    detalhe: '1 kg',
+    foto: 'img/bolachinhas.jpg',
+    preco: 34,
+    categoria: 'bolachinhas',
+    icone: '🍪',
+  },
+  {
+    nome: 'Bolachinhas de chocolate',
+    detalhe: '200 g',
+    foto: 'img/bolachinhas-chocolate.jpg',
+    preco: 9,
+    categoria: 'bolachinhas',
+    icone: '🍫',
+  },
+  {
+    nome: 'Bolachinhas de chocolate',
+    detalhe: '400 g',
+    foto: 'img/bolachinhas-chocolate.jpg',
+    preco: 17,
+    categoria: 'bolachinhas',
+    icone: '🍫',
+  },
+  {
+    nome: 'Pudim',
+    descricao: 'Porção aproximada de 8 fatias.',
+    detalhe: '900 g',
+    foto: 'img/pudim-pequeno.jpg',
+    preco: 35,
+    categoria: 'pudins',
+    icone: '🍮',
+  },
+  {
+    nome: 'Pudim',
+    descricao: 'Porção aproximada de 16 fatias.',
+    detalhe: '1,6 kg',
+    foto: 'img/pudim-grande.jpg',
+    preco: 45,
+    categoria: 'pudins',
+    icone: '🍮',
+  },
+  {
+    nome: 'Pão de mel',
+    foto: 'img/pao-de-mel.jpg',
+    descricao: 'Macio e aromático, recheado com doce de leite e coberto com chocolate.',
+    detalhe: 'Unidade',
+    preco: 10,
+    categoria: 'doces',
+    icone: '🍯',
+  },
+  {
+    nome: 'Bombom de brownie',
+    foto: 'img/bombom-brownie.jpg',
+    descricao: 'Brownie com brigadeiro tradicional e de Ninho, finalizado com chocolate.',
+    detalhe: 'Unidade',
+    preco: 13,
+    categoria: 'doces',
+    icone: '🍫',
+  },
 ];
