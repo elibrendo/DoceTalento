@@ -310,12 +310,86 @@
     return caixa;
   }
 
-  function cartao(p) {
-    const art = el('article', 'produto');
+  // ---------- Popup do produto ampliado ----------
+  const zoom = el('div', 'zoom');
+  zoom.hidden = true;
+  const zoomFundo = el('div', 'zoom__fundo');
+  const zoomCaixa = el('div', 'zoom__caixa');
+  zoomCaixa.setAttribute('role', 'dialog');
+  zoomCaixa.setAttribute('aria-modal', 'true');
+  const zoomFechar = el('button', 'zoom__fechar', '×');
+  zoomFechar.type = 'button';
+  zoomFechar.setAttribute('aria-label', 'Fechar');
+  const zoomConteudo = el('div', 'zoom__conteudo');
+  zoomCaixa.appendChild(zoomConteudo);
+  zoomCaixa.appendChild(zoomFechar);
+  zoom.appendChild(zoomFundo);
+  zoom.appendChild(zoomCaixa);
+  document.body.appendChild(zoom);
+  let zoomOrigem = null;
+
+  function abrirZoom(p, opcao, origem) {
+    zoomConteudo.innerHTML = '';
+    zoomConteudo.appendChild(cartao(p, { grande: true, opcaoInicial: opcao }));
+    zoomCaixa.setAttribute('aria-label', p.nome);
+    zoomOrigem = origem;
+    // Pausa os vídeos do cardápio enquanto o popup está aberto
+    grade.querySelectorAll('video').forEach(function (v) { v.pause(); });
+    zoom.hidden = false;
+    document.body.classList.add('modal-aberto');
+    zoomConteudo.scrollTop = 0;
+    zoomFechar.focus();
+  }
+
+  function fecharZoom() {
+    if (zoom.hidden) return;
+    zoomConteudo.querySelectorAll('video').forEach(function (v) {
+      v.pause();
+      if (observadorVideo) observadorVideo.unobserve(v);
+    });
+    zoomConteudo.innerHTML = '';
+    zoom.hidden = true;
+    if (modal.hidden) document.body.classList.remove('modal-aberto');
+    // Retoma os vídeos do cardápio que estiverem visíveis
+    if (observadorVideo) {
+      grade.querySelectorAll('video').forEach(function (v) {
+        observadorVideo.unobserve(v);
+        observadorVideo.observe(v);
+      });
+    }
+    if (zoomOrigem) zoomOrigem.focus({ preventScroll: true });
+  }
+
+  zoomFechar.addEventListener('click', fecharZoom);
+  zoomFundo.addEventListener('click', fecharZoom);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') fecharZoom();
+  });
+
+  function cartao(p, cfg) {
+    cfg = cfg || {};
+    const art = el('article', 'produto' + (cfg.grande ? ' produto--grande' : ''));
     const indice = produtos.indexOf(p);
-    let opcaoAtual = 0;
+    let opcaoAtual = cfg.opcaoInicial || 0;
 
     art.appendChild(galeria(p));
+
+    if (!cfg.grande) {
+      // Clicar no anúncio (fora dos botões) abre o popup ampliado
+      art.classList.add('produto--clicavel');
+      art.tabIndex = 0;
+      art.setAttribute('aria-label', 'Ver ' + p.nome + ' ampliado');
+      art.addEventListener('click', function (e) {
+        if (e.target.closest('button')) return;
+        abrirZoom(p, opcaoAtual, art);
+      });
+      art.addEventListener('keydown', function (e) {
+        if (e.target === art && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          abrirZoom(p, opcaoAtual, art);
+        }
+      });
+    }
 
     const info = el('div', 'produto__info');
     info.appendChild(el('h3', 'produto__nome', p.nome));
@@ -328,7 +402,7 @@
       p.opcoes.forEach(function (o, j) {
         const b = el('button', 'opcao', o.rotulo);
         b.type = 'button';
-        b.setAttribute('aria-pressed', String(j === 0));
+        b.setAttribute('aria-pressed', String(j === opcaoAtual));
         b.addEventListener('click', function () {
           opcaoAtual = j;
           grupo.querySelectorAll('.opcao').forEach(function (x, k) {

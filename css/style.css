@@ -382,6 +382,90 @@ a { color: inherit; }
   .galeria__seta:focus-visible { opacity: 1; }
 }
 
+/* ---------- Popup do produto ampliado ---------- */
+.produto--clicavel { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+
+@media (hover: hover) {
+  .produto--clicavel:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(53, 25, 14, .12); }
+}
+
+.produto--clicavel:focus-visible { outline: 2px solid #A36E45; outline-offset: 3px; }
+
+.zoom {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.zoom__fundo {
+  position: absolute;
+  inset: 0;
+  background: rgba(53, 25, 14, .45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: zoom-fade .2s ease;
+}
+
+.zoom__caixa {
+  position: relative;
+  width: min(100%, 460px);
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  display: flex;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFCF6;
+  box-shadow: 0 20px 60px rgba(53, 25, 14, .4);
+  animation: zoom-entra .22s ease;
+}
+
+.zoom__conteudo {
+  width: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Botão de sair: fica fixo no canto superior direito do popup, mesmo rolando */
+.zoom__fechar {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 249, 239, .94);
+  color: var(--chocolate);
+  font-size: 24px;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(53, 25, 14, .3);
+  cursor: pointer;
+}
+
+.produto--grande { border: 0; border-radius: 0; }
+.produto--grande .produto__info { min-height: 0; padding: 16px 18px 18px; gap: 10px; }
+.produto--grande .produto__nome { font-size: 24px; }
+.produto--grande .produto__descricao { font-size: 13px; }
+.produto--grande .produto__detalhe { margin-top: 0; font-size: 13px; }
+.produto--grande .opcoes { margin-top: 0; gap: 8px; }
+.produto--grande .opcao { min-height: 36px; padding: 0 14px; font-size: 13px; }
+.produto--grande .preco { font-size: 20px; }
+.produto--grande .pedir { min-height: 46px; font-size: 14px; }
+.produto--grande .galeria__seta { display: grid; opacity: 1; width: 34px; height: 34px; }
+/* No popup o canto superior direito é do botão de sair */
+.produto--grande .galeria__contador { top: auto; right: auto; bottom: 10px; left: 10px; }
+.produto--grande .galeria__som { bottom: 10px; }
+
+@keyframes zoom-fade { from { opacity: 0; } }
+@keyframes zoom-entra { from { opacity: 0; transform: scale(.94); } }
+
 /* ---------- Seletor de tamanho ---------- */
 .opcoes {
   display: flex;

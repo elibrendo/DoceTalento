@@ -19,11 +19,12 @@ const CATEGORIAS = [
 
 // Cada produto tem:
 //   midias: lista de arquivos (fotos .jpeg/.jpg ou vídeos .mp4). Mais de um vira galeria de arrastar.
-//   opcoes: tamanhos/quantidades, cada um com rótulo e preço. Com uma opção só, não aparece seletor.
+//   (deixe os vídeos primeiro na lista para aparecerem antes das fotos)
+//   opcoes: tamanhos/quantidades do menor para o maior; a primeira já vem selecionada.
 const KG = [
-  { rotulo: '1 kg', preco: 38 },
-  { rotulo: '500 g', preco: 19 },
   { rotulo: '250 g', preco: 9.5 },
+  { rotulo: '500 g', preco: 19 },
+  { rotulo: '1 kg', preco: 38 },
 ];
 
 const PRODUTOS = [
@@ -35,7 +36,13 @@ const PRODUTOS = [
   },
   {
     nome: 'Goiabinha',
-    midias: ['img/novos/2.jpeg'],
+    midias: ['img/novos/goiabinha.jpeg'],
+    opcoes: KG,
+    categoria: 'bolachinhas',
+  },
+  {
+    nome: 'Nata',
+    midias: ['img/novos/nata.jpeg'],
     opcoes: KG,
     categoria: 'bolachinhas',
   },
@@ -55,8 +62,8 @@ const PRODUTOS = [
     nome: 'Bolachinha de chocolate',
     midias: ['img/novos/5.jpeg'],
     opcoes: [
-      { rotulo: '400 g', preco: 19 },
       { rotulo: '200 g', preco: 10 },
+      { rotulo: '400 g', preco: 19 },
     ],
     categoria: 'bolachinhas',
   },
@@ -95,14 +102,14 @@ const PRODUTOS = [
   {
     nome: 'Pão de mel',
     descricao: 'Recheio de doce de leite.',
-    midias: ['img/novos/16.jpeg', 'img/novos/17.jpeg', 'img/novos/18.mp4'],
+    midias: ['img/novos/18.mp4', 'img/novos/16.jpeg', 'img/novos/17.jpeg'],
     opcoes: [{ rotulo: 'Unidade', preco: 10 }],
     categoria: 'doces',
   },
   {
     nome: 'Cones',
     descricao: 'Consulte os sabores disponíveis.',
-    midias: ['img/novos/19.jpeg', 'img/novos/20.jpeg', 'img/novos/21.jpeg', 'img/novos/22.mp4'],
+    midias: ['img/novos/22.mp4', 'img/novos/19.jpeg', 'img/novos/20.jpeg', 'img/novos/21.jpeg'],
     opcoes: [
       { rotulo: '1 unidade', preco: 12 },
       { rotulo: '2 unidades', preco: 20 },
@@ -111,7 +118,7 @@ const PRODUTOS = [
   },
   {
     nome: 'Bombom de morango',
-    midias: ['img/novos/23.jpeg', 'img/novos/24.mp4'],
+    midias: ['img/novos/24.mp4', 'img/novos/23.jpeg'],
     opcoes: [{ rotulo: 'Unidade', preco: 10 }],
     categoria: 'doces',
   },
