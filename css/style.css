@@ -251,66 +251,163 @@ a { color: inherit; }
   background: #FFFCF6;
 }
 
-.produto__arte {
+/* ---------- Galeria de fotos/vídeos (arrastar para o lado) ---------- */
+.galeria {
   position: relative;
-  aspect-ratio: 1.28 / 1;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  background-color: var(--creme-escuro);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(75, 40, 23, .055) 0 1px,
-    transparent 1px 15px
-  );
+  aspect-ratio: 1 / 1;
+  background: var(--creme-escuro);
 }
 
-.produto__arte::before,
-.produto__arte::after {
-  position: absolute;
-  width: 112px;
-  height: 112px;
-  border: 1px solid rgba(75, 40, 23, .14);
-  border-radius: 50%;
-  content: "";
+.galeria__trilho {
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.produto__arte::after {
-  width: 88px;
-  height: 88px;
+.galeria__trilho::-webkit-scrollbar { display: none; }
+
+.galeria__slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
-.produto__icone {
-  z-index: 1;
-  color: var(--chocolate);
-  font-family: var(--fonte-titulo);
-  font-size: 56px;
-  line-height: 1;
-  text-shadow: 0 2px 0 rgba(255, 249, 239, .65);
-}
-
-.produto__tipo {
-  position: absolute;
-  z-index: 1;
-  bottom: 9px;
-  color: var(--cacau-claro);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
-.produto__foto {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+.galeria__midia {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.produto__arte--doces { background-color: #F0E3D0; }
-.produto__arte--pudins { background-color: #F3E9D7; }
+.galeria__pontos {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  display: flex;
+  gap: 5px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.galeria__ponto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 249, 239, .6);
+  box-shadow: 0 0 2px rgba(53, 25, 14, .5);
+  transition: width .18s ease, background-color .18s ease;
+}
+
+.galeria__ponto--ativo {
+  width: 14px;
+  border-radius: 3px;
+  background: var(--creme);
+}
+
+.galeria__contador {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(53, 25, 14, .6);
+  color: var(--creme);
+  font-size: 10px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.galeria__selo {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(53, 25, 14, .6);
+  color: var(--creme);
+  font-size: 10px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.galeria__som {
+  position: absolute;
+  right: 8px;
+  bottom: 22px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(53, 25, 14, .6);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.galeria__seta {
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  display: none;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 249, 239, .88);
+  color: var(--chocolate);
+  font-size: 20px;
+  line-height: 1;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 6px rgba(53, 25, 14, .25);
+  cursor: pointer;
+}
+
+.galeria__seta--ant { left: 6px; }
+.galeria__seta--prox { right: 6px; }
+
+/* Setas só em computador (mouse); no celular é só arrastar */
+@media (hover: hover) and (pointer: fine) {
+  .galeria__seta { display: grid; opacity: 0; transition: opacity .18s ease; }
+  .galeria:hover .galeria__seta,
+  .galeria__seta:focus-visible { opacity: 1; }
+}
+
+/* ---------- Seletor de tamanho ---------- */
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: auto;
+}
+
+.opcao {
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--chocolate);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.opcao[aria-pressed="true"] {
+  border-color: var(--chocolate);
+  background: var(--chocolate);
+  color: var(--creme);
+}
 
 .produto__info {
   min-height: 150px;
