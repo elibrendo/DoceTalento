@@ -125,14 +125,14 @@ const PRODUTOS = [
   {
     nome: 'Pudim',
     descricao: 'Porção aproximada de 8 fatias.',
-    midias: ['img/pudim-pequeno.jpg'],
+    midias: ['img/novos/pudim pequeno.jpeg'],
     opcoes: [{ rotulo: '900 g', preco: 35 }],
     categoria: 'pudins',
   },
   {
     nome: 'Pudim grande',
     descricao: 'Porção aproximada de 16 fatias.',
-    midias: ['img/pudim-grande.jpg'],
+    midias: ['img/novos/pudim grande.jpeg'],
     opcoes: [{ rotulo: '1,6 kg', preco: 45 }],
     categoria: 'pudins',
   },

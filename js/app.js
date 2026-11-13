@@ -25,6 +25,8 @@
     return n;
   }
 
+  const ehVideo = function (src) { return /\.(mp4|webm|mov)$/i.test(src); };
+
   // Chave de item no carrinho: "indiceDoProduto:indiceDaOpcao"
   function itemDe(chave) {
     const partes = String(chave).split(':');
@@ -128,6 +130,13 @@
     Object.keys(itens).forEach(function (i) {
       const nome = nomeCompleto(i);
       const li = el('li', 'item');
+      const fotoItem = itemDe(i).produto.midias.find(function (m) { return !ehVideo(m); });
+      if (fotoItem) {
+        const miniatura = el('img', 'item__foto');
+        miniatura.src = fotoItem;
+        miniatura.alt = '';
+        li.appendChild(miniatura);
+      }
       const txt = el('div', 'item__txt');
       txt.appendChild(el('strong', 'item__nome', nome));
       txt.appendChild(el('span', 'item__unit', brl.format(precoDe(i)) + ' cada'));
@@ -209,7 +218,6 @@
   });
 
   // ---------- Galeria (arrastar para o lado, estilo Shopee) ----------
-  const ehVideo = function (src) { return /\.(mp4|webm|mov)$/i.test(src); };
 
   // Toca o vídeo só quando ele está visível na tela; pausa ao sair
   const observadorVideo = 'IntersectionObserver' in window
@@ -246,16 +254,6 @@
         slide.appendChild(v);
         slide.appendChild(el('span', 'galeria__selo', '▶ Vídeo'));
 
-        const som = el('button', 'galeria__som', '🔇');
-        som.type = 'button';
-        som.setAttribute('aria-label', 'Ativar som do vídeo');
-        som.addEventListener('click', function () {
-          v.muted = !v.muted;
-          som.textContent = v.muted ? '🔇' : '🔊';
-          som.setAttribute('aria-label', v.muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo');
-          if (!v.muted) v.play();
-        });
-        slide.appendChild(som);
         if (observadorVideo) observadorVideo.observe(v);
       } else {
         const img = el('img', 'galeria__midia');
